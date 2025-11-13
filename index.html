@@ -3,269 +3,660 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portfolio — Jetsadaphon Keawkha</title>
+  <title>Jetsadaphon Keawkha - Portfolio</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
-    /* Gradient animation for text */
-    @keyframes gradient {
-      0%, 100% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-    }
-    .animate-gradient {
-      background-size: 200% 200%;
-      animation: gradient 3s ease infinite;
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+    
+    * {
+      font-family: 'Inter', -apple-system, sans-serif;
     }
 
-    /* Floating animation for particles */
+    h1, h2, h3 {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Monochrome Theme */
+    body {
+      color: #111;
+      background: #fff;
+    }
+    a {
+      color: #111;
+    }
+    .glass {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(0,0,0,0.1);
+    }
+
+    /* Parallax background + animation */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('https://scontent.fbkk34-2.fna.fbcdn.net/v/t39.30808-6/518582873_1982420105901663_1429685943225382796_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeGp4IPyQPi8i-ipvzJ1jrvWZhvLeWhZjvRmG8t5aFmO9L3MDri3U9XKgADyAQLFoXKKWzVe5QkXfo5rPHnBNkNw&_nc_ohc=-ARFBHv6a28Q7kNvwFCEdtb&_nc_oc=AdnV_IsPJoXxM3-YojMpyjMS8DgFV4qbo4gbZy7Wd47-ndG9aW64dnc5vh5fQmOPzMY&_nc_zt=23&_nc_ht=scontent.fbkk34-2.fna&_nc_gid=RZHExVgqSL9iLTWm2QqQ2w&oh=00_Afh30JnrMWLPxGZPHm3aeE2tAGlMH4QhZAB4m7jIR6AYqQ&oe=691BAE3D');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      z-index: -1;
+      opacity: 0.2;
+      animation: bgZoom 60s ease-in-out infinite;
+    }
+
+    @keyframes bgZoom {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.1);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    /* Float animation */
     @keyframes float {
       0%, 100% { transform: translateY(0px); }
       50% { transform: translateY(-20px); }
     }
-    .animate-float {
-      animation: float 4s ease-in-out infinite;
+
+    .float {
+      animation: float 6s ease-in-out infinite;
     }
 
-    /* Particle styles */
-    .particle {
+    /* Fade in on scroll */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 12px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #f4f4f4;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #999;
+      border-radius: 10px;
+    }
+
+    /* Hover scale effect */
+    .hover-scale {
+      transition: transform 0.3s ease;
+    }
+
+    .hover-scale:hover {
+      transform: scale(1.05);
+    }
+
+    /* Navigation bar blur */
+    .nav-blur {
+      backdrop-filter: blur(20px);
+      background: rgba(255, 255, 255, 0.8);
+    }
+
+    /* Project card hover */
+    .project-card {
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      background: #fff;
+      border: 1px solid #ddd;
+    }
+
+    .project-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+    }
+
+    .project-overlay {
       position: absolute;
-      border-radius: 50%;
-      opacity: 0.3;
-      background: linear-gradient(135deg, #fff, #ccc);
-      pointer-events: none;
-      animation: float 4s ease-in-out infinite;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+    }
+
+    .project-card:hover .project-overlay {
+      opacity: 1;
+    }
+
+    /* View mode buttons */
+    .view-btn {
+      transition: all 0.3s ease;
+    }
+
+    .view-btn.active {
+      background: #111;
+      color: white;
+    }
+
+    /* Mobile menu */
+    .mobile-menu {
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+    }
+
+    .mobile-menu.open {
+      transform: translateX(0);
     }
   </style>
 </head>
-<body class="bg-gray-900 text-gray-100 font-sans min-h-screen relative overflow-x-hidden">
+<body class="text-gray-900 bg-white min-h-screen">
 
-  <!-- Background Image -->
-  <div class="fixed inset-0 pointer-events-none">
-    <img src="https://scontent.fbkk22-2.fna.fbcdn.net/v/t39.30808-6/518582873_1982420105901663_1429685943225382796_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeGp4IPyQPi8i-ipvzJ1jrvWZhvLeWhZjvRmG8t5aFmO9L3MDri3U9XKgADyAQLFoXKKWzVe5QkXfo5rPHnBNkNw&_nc_ohc=-ARFBHv6a28Q7kNvwEp_gb7&_nc_oc=Adk63AeNQA89ELIyHZf7FR0Cb4Llg5n9REyBidVCBUDklVpTrV75qDi8yGlLbFq5MI8&_nc_zt=23&_nc_ht=scontent.fbkk22-2.fna&_nc_gid=JWy_x_JMHfTE5umrq8L8og&oh=00_AfhINxMop9aLYPCDq3TJOD8sLDk3F12IkhGH7kEemXJhUw&oe=691B3DBD" class="w-full h-full object-cover opacity-30 blur-sm" alt="Background">
+  <!-- Navigation Bar -->
+  <nav class="fixed top-0 w-full z-50 nav-blur border-b border-gray-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <a href="#" class="text-2xl font-bold text-black">
+          JK.
+        </a>
+        
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex items-center space-x-8">
+          <a href="#home" class="hover:text-gray-600 transition-colors">หน้าแรก</a>
+          <a href="#about" class="hover:text-gray-600 transition-colors">เกี่ยวกับ</a>
+          <a href="#projects" class="hover:text-gray-600 transition-colors">โครงการ</a>
+          <a href="#skills" class="hover:text-gray-600 transition-colors">ทักษะ</a>
+          <a href="#contact" class="hover:text-gray-600 transition-colors">ติดต่อ</a>
+        </div>
+
+        <!-- View Mode Toggle -->
+        <div class="hidden md:flex items-center gap-2 glass rounded-full px-2 py-2">
+          <button onclick="switchView('desktop')" class="view-btn active px-3 py-1.5 rounded-full text-sm" id="desktop-btn">
+            <i data-lucide="monitor" class="w-4 h-4 text-black"></i>
+          </button>
+          <button onclick="switchView('mobile')" class="view-btn px-3 py-1.5 rounded-full text-sm" id="mobile-btn">
+            <i data-lucide="smartphone" class="w-4 h-4 text-black"></i>
+          </button>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button onclick="toggleMobileMenu()" class="md:hidden text-black">
+          <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="mobile-menu fixed top-0 right-0 h-full w-64 nav-blur z-50">
+    <div class="p-6">
+      <button onclick="toggleMobileMenu()" class="mb-8 text-black">
+        <i data-lucide="x" class="w-6 h-6"></i>
+      </button>
+      <div class="flex flex-col space-y-4">
+        <a href="#home" onclick="toggleMobileMenu()" class="text-lg hover:text-gray-600 transition-colors">หน้าแรก</a>
+        <a href="#about" onclick="toggleMobileMenu()" class="text-lg hover:text-gray-600 transition-colors">เกี่ยวกับ</a>
+        <a href="#projects" onclick="toggleMobileMenu()" class="text-lg hover:text-gray-600 transition-colors">โครงการ</a>
+        <a href="#skills" onclick="toggleMobileMenu()" class="text-lg hover:text.gray-600 transition-colors">ทักษะ</a>
+        <a href="#contact" onclick="toggleMobileMenu()" class="text-lg hover:text-gray-600 transition-colors">ติดต่อ</a>
+      </div>
+    </div>
   </div>
 
-  <!-- Overlay -->
-  <div class="fixed inset-0 bg-gray-900/85 pointer-events-none"></div>
-
-  <!-- Particles -->
-  <div id="particles"></div>
-
-  <div class="max-w-5xl mx-auto my-6 sm:my-10 p-4 sm:p-8 relative z-10">
-    <!-- Glass morphism card -->
-    <div class="bg-white/10 backdrop-blur-xl shadow-2xl rounded-3xl border border-white/20 overflow-hidden p-4 sm:p-8">
-
-      <!-- Header -->
-      <header class="text-center mb-8 sm:mb-12 pt-6 sm:pt-8">
-        <h1 class="text-3xl sm:text-5xl font-bold mb-3 bg-gradient-to-r from-gray-300 via-gray-100 to-gray-400 bg-clip-text text-transparent animate-gradient">
+  <!-- Main Content Container -->
+  <div id="main-container" class="transition-all duration-500 max-w-7xl mx-auto">
+    
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center px-4 pt-16">
+      <div class="text-center fade-in">
+        <div class="mb-8 float">
+          <div class="w-32 h-32 mx-auto rounded-full bg-gray-300 p-1">
+            <div class="w-full h-full rounded-full bg-gray-100 flex items-center justify-center text-5xl font-bold text-gray-800">
+              JK
+            </div>
+          </div>
+        </div>
+        
+        <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 text-black">
           Jetsadaphon Keawkha
         </h1>
-        <p class="text-gray-300 text-sm sm:text-lg mt-4 flex items-center justify-center gap-2 flex-wrap px-2 sm:px-4">
-          <span class="px-2 py-1 sm:px-3 sm:py-1.5 bg-gray-700/40 rounded-full text-xs sm:text-sm border border-gray-600/50 hover:bg-gray-600/50 transition-all">
-            💻 Computer Engineering Student
-          </span>
-          <span class="px-2 py-1 sm:px-3 sm:py-1.5 bg-gray-700/40 rounded-full text-xs sm:text-sm border border-gray-600/50 hover:bg-gray-600/50 transition-all">
-            🚀 Developer
-          </span>
-          <span class="px-2 py-1 sm:px-3 sm:py-1.5 bg-gray-700/40 rounded-full text-xs sm:text-sm border border-gray-600/50 hover:bg-gray-600/50 transition-all">
-            ⚡ Tech Enthusiast
-          </span>
+        
+        <p class="text-xl md:text-2xl text-gray-600 mb-8 max-w-2xl mx-auto">
+          Computer Engineering Student • Developer • Tech Enthusiast
         </p>
-      </header>
-
-      <!-- About Me -->
-      <section class="mb-8 sm:mb-10 px-2 sm:px-6">
-        <h2 class="text-xl sm:text-2xl font-semibold mb-3 flex items-center group">
-          <i data-lucide="user" class="w-5 h-5 sm:w-6 sm:h-6 mr-2 sm:mr-3 text-gray-400 group-hover:scale-110 transition-transform"></i>
-          <span class="group-hover:text-gray-300 transition-colors">About Me</span>
-        </h2>
-        <div class="p-4 sm:p-6 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 hover:border-gray-500/50 transition-all duration-300 hover:shadow-xl hover:shadow-gray-500/20">
-          <p class="text-gray-300 leading-relaxed text-sm sm:text-lg">
-            ผมเป็นนักเรียนที่ชื่นชอบการพัฒนาเทคโนโลยี ทั้งด้านซอฟต์แวร์และฮาร์ดแวร์ โดยเฉพาะการสร้างระบบ IoT, เว็บแอป และการประยุกต์ใช้ AI ในชีวิตจริง
-          </p>
+        
+        <div class="flex flex-wrap justify-center gap-4 mb-12">
+          <span class="glass px-6 py-3 rounded-full hover-scale cursor-default text-gray-800">
+            💻 Full Stack Developer
+          </span>
+          <span class="glass px-6 py-3 rounded-full hover-scale cursor-default text-gray-800">
+            🤖 AI & IoT
+          </span>
+          <span class="glass px-6 py-3 rounded-full hover-scale cursor-default text-gray-800">
+            🔐 Cybersecurity
+          </span>
         </div>
-      </section>
+        
+        <div class="flex justify-center gap-4">
+          <a href="#projects" class="bg-gray-800 text-white px-8 py-4 rounded-full font-semibold hover-scale">
+            ดูผลงาน
+          </a>
+          <a href="#contact" class="glass px-8 py-4 rounded-full font-semibold hover-scale text-gray-800">
+            ติดต่อ
+          </a>
+        </div>
+      </div>
+    </section>
 
-      <!-- Skills -->
-      <section class="mb-8 sm:mb-10 px-2 sm:px-6">
-        <h2 class="text-xl sm:text-2xl font-semibold mb-3 flex items-center group">
-          <i data-lucide="code" class="w-5 h-5 sm:w-6 sm:h-6 mr-2 sm:mr-3 text-gray-400 group-hover:scale-110 transition-transform"></i>
-          <span class="group-hover:text-gray-300 transition-colors">Skills</span>
+    <!-- About Section -->
+    <section id="about" class="py-20 px-4 fade-in">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-4xl md:text-5xl font-bold mb-12 text-center text-black">
+          เกี่ยวกับฉัน
         </h2>
-        <ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3">
-          <li class="p-2 sm:p-3 bg-gradient-to-br from-gray-700/30 to-gray-600/30 rounded-xl text-center border border-gray-600/30 hover:border-gray-500/60 hover:scale-105 hover:shadow-lg hover:shadow-gray-500/30 transition-all duration-300 cursor-pointer text-xs sm:text-sm">Python</li>
-          <li class="p-2 sm:p-3 bg-gradient-to-br from-gray-700/30 to-gray-600/30 rounded-xl text-center border border-gray-600/30 hover:border-gray-500/60 hover:scale-105 hover:shadow-lg hover:shadow-gray-500/30 transition-all duration-300 cursor-pointer text-xs sm:text-sm">JavaScript</li>
-          <li class="p-2 sm:p-3 bg-gradient-to-br from-gray-700/30 to-gray-600/30 rounded-xl text-center border border-gray-600/30 hover:border-gray-500/60 hover:scale-105 hover:shadow-lg hover:shadow-gray-500/30 transition-all duration-300 cursor-pointer text-xs sm:text-sm">Node.js</li>
-          <li class="p-2 sm:p-3 bg-gradient-to-br from-gray-700/30 to-gray-600/30 rounded-xl text-center border border-gray-600/30 hover:border-gray-500/60 hover:scale-105 hover:shadow-lg hover:shadow-gray-500/30 transition-all duration-300 cursor-pointer text-xs sm:text-sm">HTML & CSS</li>
-          <li class="p-2 sm:p-3 bg-gradient-to-br from-gray-700/30 to-gray-600/30 rounded-xl text-center border border-gray-600/30 hover:border-gray-500/60 hover:scale-105 hover:shadow-lg hover:shadow-gray-500/30 transition-all duration-300 cursor-pointer text-xs sm:text-sm">React</li>
-          <li class="p-2 sm:p-3 bg-gradient-to-br from-gray-700/30 to-gray-600/30 rounded-xl text-center border border-gray-600/30 hover:border-gray-500/60 hover:scale-105 hover:shadow-lg hover:shadow-gray-500/30 transition-all duration-300 cursor-pointer text-xs sm:text-sm">Flutter</li>
-          <li class="p-2 sm:p-3 bg-gradient-to-br from-gray-700/30 to-gray-600/30 rounded-xl text-center border border-gray-600/30 hover:border-gray-500/60 hover:scale-105 hover:shadow-lg hover:shadow-gray-500/30 transition-all duration-300 cursor-pointer text-xs sm:text-sm">Firebase</li>
-          <li class="p-2 sm:p-3 bg-gradient-to-br from-gray-700/30 to-gray-600/30 rounded-xl text-center border border-gray-600/30 hover:border-gray-500/60 hover:scale-105 hover:shadow-lg hover:shadow-gray-500/30 transition-all duration-300 cursor-pointer text-xs sm:text-sm">TensorFlow / ML</li>
-          <li class="p-2 sm:p-3 bg-gradient-to-br from-gray-700/30 to-gray-600/30 rounded-xl text-center border border-gray-600/30 hover:border-gray-500/60 hover:scale-105 hover:shadow-lg hover:shadow-gray-500/30 transition-all duration-300 cursor-pointer text-xs sm:text-sm">Linux</li>
-          <li class="p-2 sm:p-3 bg-gradient-to-br from-gray-700/30 to-gray-600/30 rounded-xl text-center border border-gray-600/30 hover:border-gray-500/60 hover:scale-105 hover:shadow-lg hover:shadow-gray-500/30 transition-all duration-300 cursor-pointer text-xs sm:text-sm">Git</li>
-          <li class="p-2 sm:p-3 bg-gradient-to-br from-gray-700/30 to-gray-600/30 rounded-xl text-center border border-gray-600/30 hover:border-gray-500/60 hover:scale-105 hover:shadow-lg hover:shadow-gray-500/30 transition-all duration-300 cursor-pointer text-xs sm:text-sm">C / C++</li>
-          <li class="p-2 sm:p-3 bg-gradient-to-br from-gray-700/30 to-gray-600/30 rounded-xl text-center border border-gray-600/30 hover:border-gray-500/60 hover:scale-105 hover:shadow-lg hover:shadow-gray-500/30 transition-all duration-300 cursor-pointer text-xs sm:text-sm">IoT / ESP32 / Arduino</li>
-          <li class="p-2 sm:p-3 bg-gradient-to-br from-gray-700/30 to-gray-600/30 rounded-xl text-center border border-gray-600/30 hover:border-gray-500/60 hover:scale-105 hover:shadow-lg hover:shadow-gray-500/30 transition-all duration-300 cursor-pointer text-xs sm:text-sm">Cybersecurity / PenTest</li>
-          <li class="p-2 sm:p-3 bg-gradient-to-br from-gray-700/30 to-gray-600/30 rounded-xl text-center border border-gray-600/30 hover:border-gray-500/60 hover:scale-105 hover:shadow-lg hover:shadow-gray-500/30 transition-all duration-300 cursor-pointer text-xs sm:text-sm">API Development</li>
-        </ul>
-      </section>
-
-      <!-- Projects -->
-<section class="mb-10 px-6">
-  <h2 class="text-2xl font-semibold mb-4 flex items-center group">
-    <i data-lucide="briefcase" class="w-6 h-6 mr-3 text-gray-400 group-hover:scale-110 transition-transform"></i>
-    <span class="group-hover:text-gray-300 transition-colors">Projects</span>
-  </h2>
-  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-
-    <!-- Smart Doorbell -->
-    <div class="p-5 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 hover:border-gray-400/50 transition-all duration-300 hover:shadow-xl hover:shadow-gray-500/20 hover:scale-105 cursor-pointer group">
-      <div class="flex items-center gap-3 mb-3">
-        <span class="text-3xl group-hover:scale-110 transition-transform">💡</span>
-        <h3 class="font-semibold text-lg text-gray-300">Smart Doorbell</h3>
-      </div>
-      <p class="text-sm text-gray-400">กริ่งอัจฉริยะที่ตรวจจับคนและแยกจำใบหน้า ส่งแจ้งเตือนไปยังแอปมือถือผ่าน Firebase</p>
-    </div>
-
-    <!-- Face Recognition System -->
-    <div class="p-5 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 hover:border-gray-400/50 transition-all duration-300 hover:shadow-xl hover:shadow-gray-500/20 hover:scale-105 cursor-pointer group">
-      <div class="flex items-center gap-3 mb-3">
-        <span class="text-3xl group-hover:scale-110 transition-transform">📷</span>
-        <h3 class="font-semibold text-lg text-gray-300">Face Recognition System</h3>
-      </div>
-      <p class="text-sm text-gray-400">ระบบจดจำใบหน้าจากฐานข้อมูลตัวอย่าง ใช้ Python + OpenCV สำหรับทดลองและ prototype</p>
-    </div>
-
-    <!-- IoT Smart Home -->
-    <div class="p-5 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 hover:border-gray-400/50 transition-all duration-300 hover:shadow-xl hover:shadow-gray-500/20 hover:scale-105 cursor-pointer group">
-      <div class="flex items-center gap-3 mb-3">
-        <span class="text-3xl group-hover:scale-110 transition-transform">📊</span>
-        <h3 class="font-semibold text-lg text-gray-300">IoT Smart Home</h3>
-      </div>
-      <p class="text-sm text-gray-400">ระบบควบคุมและรับค่าต่าง ๆ เช่น อุณหภูมิ การเคลื่อนไหว ด้วยระบบ IoT</p>
-    </div>
-
-    <!-- Mini Chatbot Demo -->
-    <div class="p-5 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 hover:border-gray-400/50 transition-all duration-300 hover:shadow-xl hover:shadow-gray-500/20 hover:scale-105 cursor-pointer group">
-      <div class="flex items-center gap-3 mb-3">
-        <span class="text-3xl group-hover:scale-110 transition-transform">💬</span>
-        <h3 class="font-semibold text-lg text-gray-300">Mini Chatbot Demo</h3>
-        <span class="text-xs bg-gray-600/40 px-2 py-1 rounded-full border border-gray-500/40">กำลังพัฒนา</span>
-      </div>
-      <p class="text-sm text-gray-400">Chatbot สำหรับ FAQ โปรเจกต์ ใช้ Node.js + Dialogflow ตอบคำถามอัตโนมัติ</p>
-    </div>
-
-    <!-- AI Assistant Glasses -->
-    <div class="p-5 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 hover:border-gray-400/50 transition-all duration-300 hover:shadow-xl hover:shadow-gray-500/20 hover:scale-105 cursor-pointer group">
-      <div class="flex items-center gap-3 mb-3">
-        <span class="text-3xl group-hover:scale-110 transition-transform">🕶️</span>
-        <h3 class="font-semibold text-lg text-gray-300">AI Assistant Glasses</h3>
-        <span class="text-xs bg-gray-600/40 px-2 py-1 rounded-full border border-gray-500/40">กำลังพัฒนา</span>
-      </div>
-      <p class="text-sm text-gray-400">แว่นตาอัจฉริยะสามารถใช้ทำได้หลายอย่าง ไม่ว่าจะเป็นแปลภาษา บวกเลข หรือ ตอบคำถาม</p>
-    </div>
-
-    <!-- Motorcycle Auto-Pilot Simulation -->
-    <div class="p-5 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 hover:border-gray-400/50 transition-all duration-300 hover:shadow-xl hover:shadow-gray-500/20 hover:scale-105 cursor-pointer group">
-      <div class="flex items-center gap-3 mb-3">
-        <span class="text-3xl group-hover:scale-110 transition-transform">🏍️</span>
-        <h3 class="font-semibold text-lg text-gray-300">Motorcycle Auto-Pilot Simulation</h3>
-        <span class="text-xs bg-gray-700/40 px-2 py-1 rounded-full border border-gray-600/40">กำลังศึกษา</span>
-      </div>
-      <p class="text-sm text-gray-400">โปรเจคจำลองระบบขับขี่อัตโนมัติสำหรับมอเตอร์ไซค์ ด้วยความที่ผมอยากจะเข้าใจการทำงานเลยตัดสินใจศึกษา และลองทำครับ</p>
-    </div>
-
-    <!-- Energy-Generating Shoes -->
-    <div class="p-5 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 hover:border-gray-400/50 transition-all duration-300 hover:shadow-xl hover:shadow-gray-500/20 hover:scale-105 cursor-pointer group">
-      <div class="flex items-center gap-3 mb-3">
-        <span class="text-3xl group-hover:scale-110 transition-transform">👟</span>
-        <h3 class="font-semibold text-lg text-gray-300">Energy-Generating Shoes</h3>
-        <span class="text-xs bg-gray-700/40 px-2 py-1 rounded-full border border-gray-600/40">กำลังศึกษา</span>
-      </div>
-      <p class="text-sm text-gray-400">รองเท้าที่สามารถผลิตพลังงานจากการเดิน ผมอยากจะเข้าใจการผลิตพลังงานจากพลังงานกลผมเลยตัดสินใจศึกษาครับ เพราะผมอยากให้ทุกก้าวที่วิ่งหรือเดินกลายเป็นพลังงาน</p>
-    </div>
-
-    <!-- Fitness App -->
-    <div class="p-5 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 hover:border-gray-400/50 transition-all duration-300 hover:shadow-xl hover:shadow-gray-500/20 hover:scale-105 cursor-pointer group">
-      <div class="flex items-center gap-3 mb-3">
-        <span class="text-3xl group-hover:scale-110 transition-transform">🏋️‍♂️</span>
-        <h3 class="font-semibold text-lg text-gray-300">Fitness App</h3>
-      </div>
-      <p class="text-sm text-gray-400">แอปพลิเคชันออกกำลังกาย ช่วยบันทึกกิจกรรมและติดตามความก้าวหน้า เเละยังมีระบบกล้องออกกำลังกาย</p>
-    </div>
-
-    <!-- Object Sorting Robot -->
-    <div class="p-5 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 hover:border-gray-400/50 transition-all duration-300 hover:shadow-xl hover:shadow-gray-500/20 hover:scale-105 cursor-pointer group">
-      <div class="flex items-center gap-3 mb-3">
-        <span class="text-3xl group-hover:scale-110 transition-transform">🤖</span>
-        <h3 class="font-semibold text-lg text-gray-300">Object Sorting Robot</h3>
-      </div>
-      <p class="text-sm text-gray-400">หุ่นยนต์แยกสิ่งของโดยใช้ AI และกล้องตรวจจับวัตถุ</p>
-    </div>
-
-    <!-- Smart Farm Project -->
-    <div class="p-5 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 hover:border-gray-400/50 transition-all duration-300 hover:shadow-xl hover:shadow-gray-500/20 hover:scale-105 cursor-pointer group">
-      <div class="flex items-center gap-3 mb-3">
-        <span class="text-3xl group-hover:scale-110 transition-transform">🌱</span>
-        <h3 class="font-semibold text-lg text-gray-300">Smart Farm Project</h3>
-      </div>
-      <p class="text-sm text-gray-400">ระบบฟาร์มอัจฉริยะ ควบคุมสภาพแวดล้อมและติดตามพืชผล เป็นโปรเจคพื้นฐานทั่วไปที่ผมอยากลองทำครับ</p>
-    </div>
-
-  </div>
-</section>
-
-
-      <section class="my-10 px-4 sm:px-6">
-  <div class="p-4 sm:p-8 bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl text-center hover:scale-105 transition-transform duration-300 shadow-lg shadow-gray-500/20 max-w-3xl mx-auto">
-    <p class="text-gray-100 text-base sm:text-lg md:text-xl lg:text-2xl font-semibold italic bg-clip-text text-transparent bg-gradient-to-r from-gray-300 via-gray-100 to-gray-400 animate-gradient">
-      “ทำจริง เรียนรู้จริง ไม่หยุดพัฒนา”
-    </p>
-  </div>
-</section>
-
-
-
-      <!-- Contact -->
-      <section class="px-2 sm:px-6 pb-6 sm:pb-8">
-        <h2 class="text-xl sm:text-2xl font-semibold mb-3 flex items-center group">
-          <i data-lucide="contact" class="w-5 h-5 sm:w-6 sm:h-6 mr-2 sm:mr-3 text-gray-400 group-hover:scale-110 transition-transform"></i>
-          <span class="group-hover:text-gray-300 transition-colors">Contact</span>
-        </h2>
-        <div class="flex flex-col space-y-2 sm:space-y-3">
-          <div class="p-3 sm:p-4 bg-white/5 rounded-xl border border-white/10 hover:bg-white/10 hover:border-gray-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-gray-500/20 flex items-center group cursor-pointer">
-            <i data-lucide="mail" class="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3 text-gray-400 group-hover:scale-110 transition-transform"></i>
-            <span class="text-gray-300 text-xs sm:text-sm">keawkha.ex3@gmail.com</span>
+        
+        <div class="glass rounded-3xl p-8 md:p-12">
+          <div class="flex items-start gap-6 mb-6">
+            <div class="p-4 bg-gray-300 rounded-2xl">
+              <i data-lucide="user" class="w-8 h-8 text-gray-800"></i>
+            </div>
+            <div>
+              <h3 class="text-2xl font-bold mb-4 text-gray-800">นักพัฒนาที่หลงใหลในเทคโนโลยี</h3>
+              <p class="text-gray-700 text-lg leading-relaxed mb-4">
+                ผมเป็นนักเรียนที่ชื่นชอบการพัฒนาเทคโนโลยี ทั้งด้านซอฟต์แวร์และฮาร์ดแวร์ โดยเฉพาะการสร้างระบบ IoT, เว็บแอป และการประยุกต์ใช้ AI ในชีวิตจริง
+              </p>
+              <p class="text-gray-700 text-lg leading-relaxed">
+                มุ่งมั่นที่จะสร้างสรรค์นวัตกรรมที่ช่วยให้ชีวิตผู้คนดีขึ้น ผ่านการเรียนรู้และพัฒนาอย่างไม่หยุดยั้ง
+              </p>
+            </div>
           </div>
-          <div class="p-3 sm:p-4 bg-white/5 rounded-xl border border-white/10 hover:bg-white/10 hover:border-gray-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-gray-500/20 flex items-center group cursor-pointer">
-            <i data-lucide="github" class="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3 text-gray-400 group-hover:scale-110 transition-transform"></i>
-            <span class="text-gray-300 text-xs sm:text-sm">github.com/Guitar_EX3</span>
-          </div>
-          <div class="p-3 sm:p-4 bg-white/5 rounded-xl border border-white/10 hover:bg-white/10 hover:border-gray-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-gray-500/20 flex items-center group cursor-pointer">
-            <i data-lucide="phone" class="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3 text-gray-400 group-hover:scale-110 transition-transform"></i>
-            <span class="text-gray-300 text-xs sm:text-sm">063-545-4915</span>
+          
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+            <div class="text-center p-6 bg-gray-50 rounded-2xl">
+              <div class="text-4xl mb-2">🎓</div>
+              <div class="text-2xl font-bold text-gray-800">Computer Eng.</div>
+              <div class="text-gray-500 text-sm">วิศวกรรมคอมพิวเตอร์</div>
+            </div>
+            <div class="text-center p-6 bg-gray-50 rounded-2xl">
+              <div class="text-4xl mb-2">💡</div>
+              <div class="text-2xl font-bold text-gray-800">10+</div>
+              <div class="text-gray-500 text-sm">โครงการ</div>
+            </div>
+            <div class="text-center p-6 bg-gray-50 rounded-2xl">
+              <div class="text-4xl mb-2">🚀</div>
+              <div class="text-2xl font-bold text-gray-800">Always</div>
+              <div class="text-gray-500 text-sm">เรียนรู้สิ่งใหม่</div>
+            </div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-    </div>
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 px-4 fade-in">
+      <div class="max-w-6xl mx-auto">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-center text-black">
+          โครงการที่น่าสนใจ
+        </h2>
+        <p class="text-center text-gray-600 mb-12 text-lg">ผลงานที่ผมภูมิใจและกำลังพัฒนา</p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          
+          <!-- Project 1: Smart Doorbell -->
+          <div class="project-card rounded-3xl overflow-hidden">
+            <div class="h-48 bg-gradient-to-br from-gray-300 to-gray-500 flex items-center justify-center text-6xl text-gray-800">
+              💡
+            </div>
+            <div class="p-6">
+              <h3 class="text-2xl font-bold mb-2 text-gray-900">Smart Doorbell</h3>
+              <div class="flex flex-wrap gap-2 mb-3">
+                <span class="text-xs px-3 py-1 bg-gray-200 rounded-full border border-gray-300 text-gray-800">AI</span>
+                <span class="text-xs px-3 py-1 bg-gray-200 rounded-full border border-gray-300 text-gray-800">IoT</span>
+                <span class="text-xs px-3 py-1 bg-gray-200 rounded-full border border-gray-300 text-gray-800">Firebase</span>
+              </div>
+              <p class="text-gray-600 text-sm">
+                กริ่งอัจฉริยะที่ตรวจจับคนและแยกจำใบหน้า ส่งแจ้งเตือนไปยังแอปมือถือผ่าน Firebase
+              </p>
+            </div>
+            <div class="project-overlay">
+              <button class="bg-black text-white px-6 py-3 rounded-full font-semibold hover-scale">
+                ดูรายละเอียด
+              </button>
+            </div>
+          </div>
+
+          <!-- Project 2: Face Recognition -->
+          <div class="project-card rounded-3xl overflow-hidden">
+            <div class="h-48 bg-gradient-to-br from-gray-300 to-gray-500 flex items-center justify-center text-6xl text-gray-800">
+              📷
+            </div>
+            <div class="p-6">
+              <h3 class="text-2xl font-bold mb-2 text-gray-900">Face Recognition</h3>
+              <div class="flex flex-wrap gap-2 mb-3">
+                <span class="text-xs px-3 py-1 bg-gray-200 rounded-full border border-gray-300 text-gray-800">Python</span>
+                <span class="text-xs px-3 py-1 bg-gray-200 rounded-full border border-gray-300 text-gray-800">OpenCV</span>
+                <span class="text-xs px-3 py-1 bg-gray-200 rounded-full border border-gray-300 text-gray-800">ML</span>
+              </div>
+              <p class="text-gray-600 text-sm">
+                ระบบจดจำใบหน้าจากฐานข้อมูลตัวอย่าง ใช้ Python + OpenCV สำหรับทดลองและ prototype
+              </p>
+            </div>
+            <div class="project-overlay">
+              <button class="bg-black text-white px-6 py-3 rounded-full font-semibold hover-scale">
+                ดูรายละเอียด
+              </button>
+            </div>
+          </div>
+
+          <!-- Project 3: IoT Smart Home -->
+          <div class="project-card rounded-3xl overflow-hidden">
+            <div class="h-48 bg-gradient-to-br from-gray-300 to-gray-500 flex items-center justify-center text-6xl text-gray-800">
+              🏠
+            </div>
+            <div class="p-6">
+              <h3 class="text-2xl font-bold mb-2 text-gray-900">IoT Smart Home</h3>
+              <div class="flex flex-wrap gap-2 mb-3">
+                <span class="text-xs px-3 py-1 bg-gray-200 rounded-full border border-gray-300 text-gray-800">IoT</span>
+                <span class="text-xs px-3 py-1 bg-gray-200 rounded-full border border-gray-300 text-gray-800">ESP32</span>
+                <span class="text-xs px-3 py-1 bg-gray-200 rounded-full border border-gray-300 text-gray-800">Sensors</span>
+              </div>
+              <p class="text-gray-600 text-sm">
+                ระบบควบคุมและรับค่าต่าง ๆ เช่น อุณหภูมิ การเคลื่อนไหว ด้วยระบบ IoT
+              </p>
+            </div>
+            <div class="project-overlay">
+              <button class="bg-black text-white px-6 py-3 rounded-full font-semibold hover-scale">
+                ดูรายละเอียด
+              </button>
+            </div>
+          </div>
+
+          <!-- Project 4: AI Glasses -->
+          <div class="project-card rounded-3xl overflow-hidden">
+            <div class="h-48 bg-gradient-to-br from-gray-300 to-gray-500 flex items-center justify-center text-6xl text-gray-800">
+              🕶️
+            </div>
+            <div class="p-6">
+              <h3 class="text-2xl font-bold mb-2 text-gray-900">AI Assistant Glasses</h3>
+              <div class="flex flex-wrap gap-2 mb-3">
+                <span class="text-xs px-3 py-1 bg-gray-200 rounded-full border border-gray-300 text-gray-800">AI</span>
+                <span class="text-xs px-3 py-1 bg-gray-200 rounded-full border border-gray-300 text-gray-800">Hardware</span>
+                <span class="text-xs px-3 py-1 bg-gray-200 rounded-full border border-gray-300 text-gray-800">กำลังพัฒนา</span>
+              </div>
+              <p class="text-gray-600 text-sm">
+                แว่นตาอัจฉริยะสามารถแปลภาษา บวกเลข และตอบคำถามได้
+              </p>
+            </div>
+            <div class="project-overlay">
+              <button class="bg-black text-white px-6 py-3 rounded-full font-semibold hover-scale">
+                ดูรายละเอียด
+              </button>
+            </div>
+          </div>
+
+          <!-- Project 5: Energy Shoes -->
+          <div class="project-card rounded-3xl overflow-hidden">
+            <div class="h-48 bg-gradient-to-br from-gray-300 to-gray-500 flex items-center justify-center text-6xl text-gray-800">
+              👟
+            </div>
+            <div class="p-6">
+              <h3 class="text-2xl font-bold mb-2 text-gray-900">Energy-Generating Shoes</h3>
+              <div class="flex flex-wrap gap-2 mb-3">
+                <span class="text-xs px-3 py-1 bg-gray-200 rounded-full border border-gray-300 text-gray-800">Energy</span>
+                <span class="text-xs px-3 py-1 bg.gray-200 rounded-full border border.gray-300 text.gray-800">Hardware</span>
+                <span class="text-xs px-3 py-1 bg.gray-200 rounded-full border border.gray-300 text.gray-800">กำลังศึกษา</span>
+              </div>
+              <p class="text-gray-600 text-sm">
+                รองเท้าที่สามารถผลิตพลังงานจากการเดิน เปลี่ยนทุกก้าวให้เป็นพลังงาน
+              </p>
+            </div>
+            <div class="project-overlay">
+              <button class="bg-black text-white px-6 py-3 rounded-full font-semibold hover-scale">
+                ดูรายละเอียด
+              </button>
+            </div>
+          </div>
+
+          <!-- Project 6: Fitness App -->
+          <div class="project-card rounded-3xl overflow-hidden">
+            <div class="h-48 bg-gradient-to-br from.gray-300 to.gray-500 flex items-center justify-center text-6xl text.gray-800">
+              🏋️‍♂️
+            </div>
+            <div class="p-6">
+              <h3 class="text-2xl font-bold mb-2 text-gray-900">Fitness App</h3>
+              <div class="flex flex-wrap gap-2 mb-3">
+                <span class="text-xs px-3 py-1 bg.gray-200 rounded-full border border.gray-300 text.gray-800">Mobile</span>
+                <span class="text-xs px-3 py-1 bg.gray-200 rounded-full border border.gray-300 text.gray-800">AI Camera</span>
+                <span class="text-xs px-3 py-1 bg.gray-200 rounded-full border border.gray-300 text.gray-800">Health</span>
+              </div>
+              <p class="text-gray-600 text-sm">
+                แอปพลิเคชันออกกำลังกาย บันทึกกิจกรรม ติดตามความก้าวหน้า พร้อมระบบกล้อง AI
+              </p>
+            </div>
+            <div class="project-overlay">
+              <button class="bg-black text-white px-6 py-3 rounded-full font-semibold hover-scale">
+                ดูรายละเอียด
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 px-4 fade-in">
+      <div class="max-w-6xl mx-auto">
+        <h2 class="text-4xl md:text-5xl font-bold mb-12 text-center text-black">
+          ทักษะและเทคโนโลยี
+        </h2>
+        
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div class="glass rounded-2xl p-6 text-center hover-scale">
+            <div class="text-5xl mb-4 text-gray-800">🐍</div>
+            <h3 class="font-bold text-lg mb-1 text-gray-900">Python</h3>
+            <p class="text-gray-500 text-sm">AI/ML, Backend</p>
+          </div>
+          
+          <div class="glass rounded-2xl p-6 text-center hover-scale">
+            <div class="text-5xl mb-4 text-gray-800">⚡</div>
+            <h3 class="font-bold text-lg mb-1 text-gray-900">JavaScript</h3>
+            <p class="text-gray-500 text-sm">Full Stack</p>
+          </div>
+          
+          <div class="glass rounded-2xl p-6 text-center hover-scale">
+            <div class="text-5xl mb-4 text-gray-800">⚛️</div>
+            <h3 class="font-bold text-lg mb-1 text-gray-900">React</h3>
+            <p class="text-gray-500 text-sm">Frontend</p>
+          </div>
+          
+          <div class="glass rounded-2xl p-6 text-center hover-scale">
+            <div class="text-5xl mb-4 text-gray-800">🟢</div>
+            <h3 class="font-bold text-lg mb-1 text-gray-900">Node.js</h3>
+            <p class="text-gray-500 text-sm">Backend</p>
+          </div>
+          
+          <div class="glass rounded-2xl p-6 text-center hover-scale">
+            <div class="text-5xl mb-4 text-gray-800">🎯</div>
+            <h3 class="font-bold text-lg mb-1 text-gray-900">Flutter</h3>
+            <p class="text-gray-500 text-sm">Mobile App</p>
+          </div>
+          
+          <div class="glass rounded-2xl p-6 text-center hover-scale">
+            <div class="text-5xl mb-4 text-gray-800">🔥</div>
+            <h3 class="font-bold text-lg mb-1 text-gray-900">Firebase</h3>
+            <p class="text-gray-500 text-sm">BaaS</p>
+          </div>
+          
+          <div class="glass rounded-2xl p-6 text-center hover-scale">
+            <div class="text-5xl mb-4 text-gray-800">🧠</div>
+            <h3 class="font-bold text-lg mb-1 text-gray-900">AI / ML</h3>
+            <p class="text-gray-500 text-sm">Deep Learning</p>
+          </div>
+          
+          <div class="glass rounded-2xl p-6 text-center hover-scale">
+            <div class="text-5xl mb-4 text-gray-800">🔧</div>
+            <h3 class="font-bold text-lg mb-1 text-gray-900">IoT</h3>
+            <p class="text-gray-500 text-sm">Arduino, ESP32</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quote Section -->
+    <section class="py-20 px-4 fade-in">
+      <div class="max-w-4xl mx-auto">
+        <div class="glass rounded-3xl p-12 text-center border-2 border-gray-300">
+          <i data-lucide="quote" class="w-16 h-16 mx-auto mb-6 text-gray-700"></i>
+          <blockquote class="text-3xl md:text-4xl font-bold text-black mb-4">
+            "ทำจริง เรียนรู้จริง ไม่หยุดพัฒนา"
+          </blockquote>
+          <p class="text-gray-600 text-lg">— Jetsadaphon Keawkha</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 px-4 fade-in">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-4xl md:text-5xl font-bold mb-12 text-center text-black">
+          ติดต่อฉัน
+        </h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <a href="mailto:keawkha.ex3@gmail.com" class="glass rounded-2xl p-6 hover-scale flex flex-col items-center text-center">
+            <div class="w-16 h-16 bg-gradient-to-br from-gray-300 to-gray-400 rounded-2xl flex items-center justify-center mb-4">
+              <i data-lucide="mail" class="w-8 h-8 text-gray-800"></i>
+            </div>
+            <h3 class="font-bold mb-2 text-gray-900">Email</h3>
+            <p class="text-gray-600 text-sm">keawkha.ex3@gmail.com</p>
+          </a>
+
+          <a href="https://github.com/Guitar_EX3" target="_blank" class="glass rounded-2xl p-6 hover-scale flex flex-col items-center text-center">
+            <div class="w-16 h-16 bg-gradient-to-br from-gray-300 to-gray-400 rounded-2xl flex items-center justify-center mb-4">
+              <i data-lucide="github" class="w-8 h-8 text-gray-800"></i>
+            </div>
+            <h3 class="font-bold mb-2 text-gray-900">GitHub</h3>
+            <p class="text-gray-600 text-sm">Guitar_EX3</p>
+          </a>
+
+          <a href="tel:063-545-4915" class="glass rounded-2xl p-6 hover-scale flex flex-col items-center text-center">
+            <div class="w-16 h-16 bg-gradient-to-br from-gray-300 to-gray-400 rounded-2xl flex items-center justify-center mb-4">
+              <i data-lucide="phone" class="w-8 h-8 text-gray-800"></i>
+            </div>
+            <h3 class="font-bold mb-2 text-gray-900">Phone</h3>
+            <p class="text-gray-600 text-sm">063-545-4915</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 px-4 border-t border-gray-300">
+      <div class="max-w-6xl mx-auto">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+          <div class="mb-4 md:mb-0">
+            <p class="text-gray-600">© 2024 Jetsadaphon Keawkha. Built with passion & code.</p>
+          </div>
+          <div class="flex gap-6">
+            <a href="https://github.com/Guitar_EX3" target="_blank" class="text-gray-600 hover:text-gray-800 transition-colors">
+              <i data-lucide="github" class="w-6 h-6"></i>
+            </a>
+            <a href="mailto:keawkha.ex3@gmail.com" class="text-gray-600 hover:text-gray-800 transition-colors">
+              <i data-lucide="mail" class="w-6 h-6"></i>
+            </a>
+            <a href="tel:063-545-4915" class="text-gray-600 hover:text-gray-800 transition-colors">
+              <i data-lucide="phone" class="w-6 h-6"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
   </div>
 
   <script>
+    // Initialize Lucide icons
     lucide.createIcons();
 
-    // Generate floating particles
-    const particleContainer = document.getElementById("particles");
-    const particleCount = window.innerWidth < 640 ? 15 : 30; // ลดจำนวนสำหรับมือถือ
-    for (let i = 0; i < particleCount; i++) {
-      const particle = document.createElement("div");
-      particle.classList.add("particle", "animate-float");
-      particle.style.width = `${Math.random() * 15 + 5}px`;
-      particle.style.height = particle.style.width;
-      particle.style.left = `${Math.random() * 100}%`;
-      particle.style.top = `${Math.random() * 100}%`;
-      particle.style.animationDuration = `${Math.random() * 3 + 2}s`;
-      particleContainer.appendChild(particle);
+    // Fade in on scroll
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -100px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.fade-in').forEach(el => {
+      observer.observe(el);
+    });
+
+    // View mode switcher
+    function switchView(mode) {
+      const container = document.getElementById('main-container');
+      const desktopBtn = document.getElementById('desktop-btn');
+      const mobileBtn = document.getElementById('mobile-btn');
+      
+      if (mode === 'mobile') {
+        container.style.maxWidth = '480px';
+        container.style.margin = '0 auto';
+        desktopBtn.classList.remove('active');
+        mobileBtn.classList.add('active');
+      } else {
+        container.style.maxWidth = '1280px';
+        desktopBtn.classList.add('active');
+        mobileBtn.classList.remove('active');
+      }
     }
+
+    // Mobile menu toggle
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('open');
+    }
+
+    // Smooth scroll with offset for fixed nav
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          const offset = 80;
+          const targetPosition = target.offsetTop - offset;
+          window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+
+    // Initialize first fade-in
+    setTimeout(() => {
+      document.querySelector('#home .fade-in').classList.add('visible');
+    }, 100);
   </script>
 
 </body>
