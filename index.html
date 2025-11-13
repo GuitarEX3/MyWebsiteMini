@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio — Jetsadaphon Keawkha</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    /* Gradient animation for text */
+    @keyframes gradient {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+    .animate-gradient {
+      background-size: 200% 200%;
+      animation: gradient 3s ease infinite;
+    }
+
+    /* Floating animation for particles */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+    .animate-float {
+      animation: float 4s ease-in-out infinite;
+    }
+
+    /* Particle styles */
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.3;
+      background: linear-gradient(135deg, #fff, #ccc);
+      pointer-events: none;
+      animation: float 4s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body class="bg-gray-900 text-gray-100 font-sans min-h-screen relative overflow-x-hidden">
+
+  <!-- Background Image -->
+  <div class="fixed inset-0 pointer-events-none">
+    <img src="https://scontent.fbkk22-2.fna.fbcdn.net/v/t39.30808-6/518582873_1982420105901663_1429685943225382796_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeGp4IPyQPi8i-ipvzJ1jrvWZhvLeWhZjvRmG8t5aFmO9L3MDri3U9XKgADyAQLFoXKKWzVe5QkXfo5rPHnBNkNw&_nc_ohc=-ARFBHv6a28Q7kNvwEp_gb7&_nc_oc=Adk63AeNQA89ELIyHZf7FR0Cb4Llg5n9REyBidVCBUDklVpTrV75qDi8yGlLbFq5MI8&_nc_zt=23&_nc_ht=scontent.fbkk22-2.fna&_nc_gid=JWy_x_JMHfTE5umrq8L8og&oh=00_AfhINxMop9aLYPCDq3TJOD8sLDk3F12IkhGH7kEemXJhUw&oe=691B3DBD" class="w-full h-full object-cover opacity-30 blur-sm" alt="Background">
+  </div>
+
+  <!-- Overlay -->
+  <div class="fixed inset-0 bg-gray-900/85 pointer-events-none"></div>
+
+  <!-- Particles -->
+  <div id="particles"></div>
+
+  <div class="max-w-5xl mx-auto my-10 p-8 relative z-10">
+    <!-- Glass morphism card -->
+    <div class="bg-white/10 backdrop-blur-xl shadow-2xl rounded-3xl border border-white/20 overflow-hidden p-8">
+
+      <!-- Header -->
+      <header class="text-center mb-12 pt-8">
+        <h1 class="text-5xl font-bold mb-3 bg-gradient-to-r from-gray-300 via-gray-100 to-gray-400 bg-clip-text text-transparent animate-gradient">
+          Jetsadaphon Keawkha
+        </h1>
+        <p class="text-gray-300 text-lg mt-4 flex items-center justify-center gap-2 flex-wrap px-4">
+          <span class="px-3 py-1 bg-gray-700/40 rounded-full text-sm border border-gray-600/50 hover:bg-gray-600/50 transition-all">
+            💻 Computer Engineering Student
+          </span>
+          <span class="px-3 py-1 bg-gray-700/40 rounded-full text-sm border border-gray-600/50 hover:bg-gray-600/50 transition-all">
+            🚀 Developer
+          </span>
+          <span class="px-3 py-1 bg-gray-700/40 rounded-full text-sm border border-gray-600/50 hover:bg-gray-600/50 transition-all">
+            ⚡ Tech Enthusiast
+          </span>
+        </p>
+      </header>
+
+      <!-- About Me -->
+      <section class="mb-10 px-6">
+        <h2 class="text-2xl font-semibold mb-4 flex items-center group">
+          <i data-lucide="user" class="w-6 h-6 mr-3 text-gray-400 group-hover:scale-110 transition-transform"></i>
+          <span class="group-hover:text-gray-300 transition-colors">About Me</span>
+        </h2>
+        <div class="p-6 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 hover:border-gray-500/50 transition-all duration-300 hover:shadow-xl hover:shadow-gray-500/20">
+          <p class="text-gray-300 leading-relaxed text-lg">
+            ผมเป็นนักเรียนที่ชื่นชอบการพัฒนาเทคโนโลยี ทั้งด้านซอฟต์แวร์และฮาร์ดแวร์ โดยเฉพาะการสร้างระบบ IoT, เว็บแอป และการประยุกต์ใช้ AI ในชีวิตจริง
+          </p>
+        </div>
+      </section>
+
+      <!-- Skills -->
+      <section class="mb-10 px-6">
+        <h2 class="text-2xl font-semibold mb-4 flex items-center group">
+          <i data-lucide="code" class="w-6 h-6 mr-3 text-gray-400 group-hover:scale-110 transition-transform"></i>
+          <span class="group-hover:text-gray-300 transition-colors">Skills</span>
+        </h2>
+        <ul class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+          <li class="p-3 bg-gradient-to-br from-gray-700/30 to-gray-600/30 rounded-xl text-center border border-gray-600/30 hover:border-gray-500/60 hover:scale-105 hover:shadow-lg hover:shadow-gray-500/30 transition-all duration-300 cursor-pointer">Python</li>
+          <li class="p-3 bg-gradient-to-br from-gray-700/30 to-gray-600/30 rounded-xl text-center border border-gray-600/30 hover:border-gray-500/60 hover:scale-105 hover:shadow-lg hover:shadow-gray-500/30 transition-all duration-300 cursor-pointer">JavaScript</li>
+          <li class="p-3 bg-gradient-to-br from-gray-700/30 to-gray-600/30 rounded-xl text-center border border-gray-600/30 hover:border-gray-500/60 hover:scale-105 hover:shadow-lg hover:shadow-gray-500/30 transition-all duration-300 cursor-pointer">Node.js</li>
+          <li class="p-3 bg-gradient-to-br from-gray-700/30 to-gray-600/30 rounded-xl text-center border border-gray-600/30 hover:border-gray-500/60 hover:scale-105 hover:shadow-lg hover:shadow-gray-500/30 transition-all duration-300 cursor-pointer">HTML & CSS</li>
+          <li class="p-3 bg-gradient-to-br from-gray-700/30 to-gray-600/30 rounded-xl text-center border border-gray-600/30 hover:border-gray-500/60 hover:scale-105 hover:shadow-lg hover:shadow-gray-500/30 transition-all duration-300 cursor-pointer">React</li>
+          <li class="p-3 bg-gradient-to-br from-gray-700/30 to-gray-600/30 rounded-xl text-center border border-gray-600/30 hover:border-gray-500/60 hover:scale-105 hover:shadow-lg hover:shadow-gray-500/30 transition-all duration-300 cursor-pointer">Flutter</li>
+          <li class="p-3 bg-gradient-to-br from-gray-700/30 to-gray-600/30 rounded-xl text-center border border-gray-600/30 hover:border-gray-500/60 hover:scale-105 hover:shadow-lg hover:shadow-gray-500/30 transition-all duration-300 cursor-pointer">Firebase</li>
+          <li class="p-3 bg-gradient-to-br from-gray-700/30 to-gray-600/30 rounded-xl text-center border border-gray-600/30 hover:border-gray-500/60 hover:scale-105 hover:shadow-lg hover:shadow-gray-500/30 transition-all duration-300 cursor-pointer">TensorFlow / ML</li>
+          <li class="p-3 bg-gradient-to-br from-gray-700/30 to-gray-600/30 rounded-xl text-center border border-gray-600/30 hover:border-gray-500/60 hover:scale-105 hover:shadow-lg hover:shadow-gray-500/30 transition-all duration-300 cursor-pointer">Linux</li>
+          <li class="p-3 bg-gradient-to-br from-gray-700/30 to-gray-600/30 rounded-xl text-center border border-gray-600/30 hover:border-gray-500/60 hover:scale-105 hover:shadow-lg hover:shadow-gray-500/30 transition-all duration-300 cursor-pointer">Git</li>
+          <li class="p-3 bg-gradient-to-br from-gray-700/30 to-gray-600/30 rounded-xl text-center border border-gray-600/30 hover:border-gray-500/60 hover:scale-105 hover:shadow-lg hover:shadow-gray-500/30 transition-all duration-300 cursor-pointer">C / C++</li>
+          <li class="p-3 bg-gradient-to-br from-gray-700/30 to-gray-600/30 rounded-xl text-center border border-gray-600/30 hover:border-gray-500/60 hover:scale-105 hover:shadow-lg hover:shadow-gray-500/30 transition-all duration-300 cursor-pointer">IoT / ESP32 / Arduino</li>
+          <li class="p-3 bg-gradient-to-br from-gray-700/30 to-gray-600/30 rounded-xl text-center border border-gray-600/30 hover:border-gray-500/60 hover:scale-105 hover:shadow-lg hover:shadow-gray-500/30 transition-all duration-300 cursor-pointer">Cybersecurity / PenTest</li>
+          <li class="p-3 bg-gradient-to-br from-gray-700/30 to-gray-600/30 rounded-xl text-center border border-gray-600/30 hover:border-gray-500/60 hover:scale-105 hover:shadow-lg hover:shadow-gray-500/30 transition-all duration-300 cursor-pointer">API Development</li>
+        </ul>
+      </section>
+
+      <!-- Projects -->
+<section class="mb-10 px-6">
+  <h2 class="text-2xl font-semibold mb-4 flex items-center group">
+    <i data-lucide="briefcase" class="w-6 h-6 mr-3 text-gray-400 group-hover:scale-110 transition-transform"></i>
+    <span class="group-hover:text-gray-300 transition-colors">Projects</span>
+  </h2>
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+    <!-- Smart Doorbell -->
+    <div class="p-5 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 hover:border-gray-400/50 transition-all duration-300 hover:shadow-xl hover:shadow-gray-500/20 hover:scale-105 cursor-pointer group">
+      <div class="flex items-center gap-3 mb-3">
+        <span class="text-3xl group-hover:scale-110 transition-transform">💡</span>
+        <h3 class="font-semibold text-lg text-gray-300">Smart Doorbell</h3>
+      </div>
+      <p class="text-sm text-gray-400">กริ่งอัจฉริยะที่ตรวจจับคนและแยกจำใบหน้า ส่งแจ้งเตือนไปยังแอปมือถือผ่าน Firebase</p>
+    </div>
+
+    <!-- Face Recognition System -->
+    <div class="p-5 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 hover:border-gray-400/50 transition-all duration-300 hover:shadow-xl hover:shadow-gray-500/20 hover:scale-105 cursor-pointer group">
+      <div class="flex items-center gap-3 mb-3">
+        <span class="text-3xl group-hover:scale-110 transition-transform">📷</span>
+        <h3 class="font-semibold text-lg text-gray-300">Face Recognition System</h3>
+      </div>
+      <p class="text-sm text-gray-400">ระบบจดจำใบหน้าจากฐานข้อมูลตัวอย่าง ใช้ Python + OpenCV สำหรับทดลองและ prototype</p>
+    </div>
+
+    <!-- IoT Smart Home -->
+    <div class="p-5 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 hover:border-gray-400/50 transition-all duration-300 hover:shadow-xl hover:shadow-gray-500/20 hover:scale-105 cursor-pointer group">
+      <div class="flex items-center gap-3 mb-3">
+        <span class="text-3xl group-hover:scale-110 transition-transform">📊</span>
+        <h3 class="font-semibold text-lg text-gray-300">IoT Smart Home</h3>
+      </div>
+      <p class="text-sm text-gray-400">ระบบควบคุมและรับค่าต่าง ๆ เช่น อุณหภูมิ การเคลื่อนไหว ด้วยระบบ IoT</p>
+    </div>
+
+    <!-- Mini Chatbot Demo -->
+    <div class="p-5 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 hover:border-gray-400/50 transition-all duration-300 hover:shadow-xl hover:shadow-gray-500/20 hover:scale-105 cursor-pointer group">
+      <div class="flex items-center gap-3 mb-3">
+        <span class="text-3xl group-hover:scale-110 transition-transform">💬</span>
+        <h3 class="font-semibold text-lg text-gray-300">Mini Chatbot Demo</h3>
+        <span class="text-xs bg-gray-600/40 px-2 py-1 rounded-full border border-gray-500/40">กำลังพัฒนา</span>
+      </div>
+      <p class="text-sm text-gray-400">Chatbot สำหรับ FAQ โปรเจกต์ ใช้ Node.js + Dialogflow ตอบคำถามอัตโนมัติ</p>
+    </div>
+
+    <!-- AI Assistant Glasses -->
+    <div class="p-5 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 hover:border-gray-400/50 transition-all duration-300 hover:shadow-xl hover:shadow-gray-500/20 hover:scale-105 cursor-pointer group">
+      <div class="flex items-center gap-3 mb-3">
+        <span class="text-3xl group-hover:scale-110 transition-transform">🕶️</span>
+        <h3 class="font-semibold text-lg text-gray-300">AI Assistant Glasses</h3>
+        <span class="text-xs bg-gray-600/40 px-2 py-1 rounded-full border border-gray-500/40">กำลังพัฒนา</span>
+      </div>
+      <p class="text-sm text-gray-400">แว่นตาอัจฉริยะสามารถใช้ทำได้หลายอย่าง ไม่ว่าจะเป็นแปลภาษา บวกเลข หรือ ตอบคำถาม</p>
+    </div>
+
+    <!-- Motorcycle Auto-Pilot Simulation -->
+    <div class="p-5 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 hover:border-gray-400/50 transition-all duration-300 hover:shadow-xl hover:shadow-gray-500/20 hover:scale-105 cursor-pointer group">
+      <div class="flex items-center gap-3 mb-3">
+        <span class="text-3xl group-hover:scale-110 transition-transform">🏍️</span>
+        <h3 class="font-semibold text-lg text-gray-300">Motorcycle Auto-Pilot Simulation</h3>
+        <span class="text-xs bg-gray-700/40 px-2 py-1 rounded-full border border-gray-600/40">กำลังศึกษา</span>
+      </div>
+      <p class="text-sm text-gray-400">โปรเจคจำลองระบบขับขี่อัตโนมัติสำหรับมอเตอร์ไซค์ ด้วยความที่ผมอยากจะเข้าใจการทำงานเลยตัดสินใจศึกษา และลองทำครับ</p>
+    </div>
+
+    <!-- Energy-Generating Shoes -->
+    <div class="p-5 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 hover:border-gray-400/50 transition-all duration-300 hover:shadow-xl hover:shadow-gray-500/20 hover:scale-105 cursor-pointer group">
+      <div class="flex items-center gap-3 mb-3">
+        <span class="text-3xl group-hover:scale-110 transition-transform">👟</span>
+        <h3 class="font-semibold text-lg text-gray-300">Energy-Generating Shoes</h3>
+        <span class="text-xs bg-gray-700/40 px-2 py-1 rounded-full border border-gray-600/40">กำลังศึกษา</span>
+      </div>
+      <p class="text-sm text-gray-400">รองเท้าที่สามารถผลิตพลังงานจากการเดิน ผมอยากจะเข้าใจการผลิตพลังงานจากพลังงานกลผมเลยตัดสินใจศึกษาครับ เพราะผมอยากให้ทุกก้าวที่วิ่งหรือเดินกลายเป็นพลังงาน</p>
+    </div>
+
+    <!-- Fitness App -->
+    <div class="p-5 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 hover:border-gray-400/50 transition-all duration-300 hover:shadow-xl hover:shadow-gray-500/20 hover:scale-105 cursor-pointer group">
+      <div class="flex items-center gap-3 mb-3">
+        <span class="text-3xl group-hover:scale-110 transition-transform">🏋️‍♂️</span>
+        <h3 class="font-semibold text-lg text-gray-300">Fitness App</h3>
+      </div>
+      <p class="text-sm text-gray-400">แอปพลิเคชันออกกำลังกาย ช่วยบันทึกกิจกรรมและติดตามความก้าวหน้า เเละยังมีระบบกล้องออกกำลังกาย</p>
+    </div>
+
+    <!-- Object Sorting Robot -->
+    <div class="p-5 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 hover:border-gray-400/50 transition-all duration-300 hover:shadow-xl hover:shadow-gray-500/20 hover:scale-105 cursor-pointer group">
+      <div class="flex items-center gap-3 mb-3">
+        <span class="text-3xl group-hover:scale-110 transition-transform">🤖</span>
+        <h3 class="font-semibold text-lg text-gray-300">Object Sorting Robot</h3>
+      </div>
+      <p class="text-sm text-gray-400">หุ่นยนต์แยกสิ่งของโดยใช้ AI และกล้องตรวจจับวัตถุ</p>
+    </div>
+
+    <!-- Smart Farm Project -->
+    <div class="p-5 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 hover:border-gray-400/50 transition-all duration-300 hover:shadow-xl hover:shadow-gray-500/20 hover:scale-105 cursor-pointer group">
+      <div class="flex items-center gap-3 mb-3">
+        <span class="text-3xl group-hover:scale-110 transition-transform">🌱</span>
+        <h3 class="font-semibold text-lg text-gray-300">Smart Farm Project</h3>
+      </div>
+      <p class="text-sm text-gray-400">ระบบฟาร์มอัจฉริยะ ควบคุมสภาพแวดล้อมและติดตามพืชผล เป็นโปรเจคพื้นฐานทั่วไปที่ผมอยากลองทำครับ</p>
+    </div>
+
+  </div>
+</section>
+
+
+      <!-- Contact -->
+      <section class="px-6 pb-8">
+        <h2 class="text-2xl font-semibold mb-4 flex items-center group">
+          <i data-lucide="contact" class="w-6 h-6 mr-3 text-gray-400 group-hover:scale-110 transition-transform"></i>
+          <span class="group-hover:text-gray-300 transition-colors">Contact</span>
+        </h2>
+        <div class="flex flex-col space-y-3">
+          <div class="p-4 bg-white/5 rounded-xl border border-white/10 hover:bg-white/10 hover:border-gray-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-gray-500/20 flex items-center group cursor-pointer">
+            <i data-lucide="mail" class="w-5 h-5 mr-3 text-gray-400 group-hover:scale-110 transition-transform"></i>
+            <span class="text-gray-300">keawkha.ex3@gmail.com</span>
+          </div>
+          <div class="p-4 bg-white/5 rounded-xl border border-white/10 hover:bg-white/10 hover:border-gray-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-gray-500/20 flex items-center group cursor-pointer">
+            <i data-lucide="github" class="w-5 h-5 mr-3 text-gray-400 group-hover:scale-110 transition-transform"></i>
+            <span class="text-gray-300">github.com/Guitar_EX3</span>
+          </div>
+          <div class="p-4 bg-white/5 rounded-xl border border-white/10 hover:bg-white/10 hover:border-gray-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-gray-500/20 flex items-center group cursor-pointer">
+            <i data-lucide="phone" class="w-5 h-5 mr-3 text-gray-400 group-hover:scale-110 transition-transform"></i>
+            <span class="text-gray-300">063-545-4915</span>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <script>
+    lucide.createIcons();
+
+    // Generate floating particles
+    const particleContainer = document.getElementById("particles");
+    for (let i = 0; i < 30; i++) {
+      const particle = document.createElement("div");
+      particle.classList.add("particle", "animate-float");
+      particle.style.width = `${Math.random() * 15 + 5}px`;
+      particle.style.height = particle.style.width;
+      particle.style.left = `${Math.random() * 100}%`;
+      particle.style.top = `${Math.random() * 100}%`;
+      particle.style.animationDuration = `${Math.random() * 3 + 2}s`;
+      particleContainer.appendChild(particle);
+    }
+  </script>
+
+</body>
+</html>
